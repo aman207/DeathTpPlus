@@ -202,4 +202,4 @@ maxDeaths: 0
 # When a Tomb is destroyed, the respawn point is reset.
 resetTombRespawn: false
 
-
+world_no: [games]

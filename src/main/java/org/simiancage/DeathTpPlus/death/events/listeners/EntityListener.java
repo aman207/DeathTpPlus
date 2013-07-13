@@ -2,6 +2,8 @@ package org.simiancage.DeathTpPlus.death.events.listeners;
 
 //java imports
 
+import java.util.List;
+
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -50,14 +52,34 @@ public class EntityListener implements Listener {
 
 			}
 			if (config.isEnableDeathtp()) {
-				oedea = new EntityDeathHandler(plugin);
-				oedea.oEDeaDeathTp(plugin, instance, event);
+				boolean dontDoIt=false;
+				/**List<String>world = plugin.getConfig().getStringList("ranks".toLowerCase());
+				for(String s:world)
+				{
+					
+				}*/
+				if(event.getEntity().getLocation().equals("Games"))
+				{
+					dontDoIt=true;
+				}
+				if(event.getEntity().getWorld().getName().equals("Games"))
+				{
+					dontDoIt=true;
+				}
+				if(dontDoIt==false)
+				{
+					oedea = new EntityDeathHandler(plugin);
+					oedea.oEDeaDeathTp(plugin, instance, event);
+					
+					if (config.isShowDeathNotify() || config.isShowStreaks() || config.isAllowDeathLog() || config.isEnableTombStone() || config.isEnableTomb()) {
+						oedea = new EntityDeathHandler(plugin);
+						oedea.oEDeaGeneralDeath(plugin, instance, event);
+					}
+				}
+				
 			}
 
-			if (config.isShowDeathNotify() || config.isShowStreaks() || config.isAllowDeathLog() || config.isEnableTombStone() || config.isEnableTomb()) {
-				oedea = new EntityDeathHandler(plugin);
-				oedea.oEDeaGeneralDeath(plugin, instance, event);
-			}
+			
 		}
 
 	}
